@@ -236,14 +236,16 @@ function PanelLabel({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-// ─── Screen 1: Register (Sin formularios, 100% seguro) ───────────────────────
 function RegisterScreen({ nav }: { nav: (s: Screen) => void }) {
   const [form, setForm] = useState({ gamertag: "", email: "", password: "", platform: "PC" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const set = (k: keyof typeof form) => (v: string) => setForm((f) => ({ ...f, [k]: v }));
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
+    // Ya sacamos el alert de prueba de acá arriba
+    
     const err: Record<string, string> = {};
+    setErrors({});
 
     if (!form.gamertag.trim()) err.gamertag = "El gamertag es obligatorio";
     if (!form.email.includes("@") || !form.email.includes(".")) err.email = "Correo electrónico inválido";
@@ -251,22 +253,36 @@ function RegisterScreen({ nav }: { nav: (s: Screen) => void }) {
 
     if (Object.keys(err).length > 0) {
       setErrors(err);
-      return; // Frena acá si hay errores
+      return; 
     }
 
-    const newUser = {
-      gamertag: form.gamertag.trim(),
-      email: form.email.toLowerCase().trim(),
-      password: form.password,
-    };
-    localStorage.setItem("gs_user", JSON.stringify(newUser));
+    try {
+      const respuesta = await fetch("http://localhost:3000/api/usuarios/registro", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre: form.gamertag.trim(), 
+          email: form.email.toLowerCase().trim(),
+          password: form.password,
+        }),
+      });
 
-    alert("¡Cuenta creada con éxito! Ahora podés iniciar sesión.");
-    nav("login");
+      if (respuesta.ok) {
+        // Mensaje limpio de éxito cuando el backend confirma el registro
+        alert("¡Cuenta creada con éxito! Ya podés iniciar sesión.");
+        nav("login");
+      } else {
+        const datos = await respuesta.json().catch(() => ({}));
+        setErrors({ email: datos.error || "El correo ya se encuentra registrado" });
+      }
+    } catch (error) {
+      console.error("Error en el fetch:", error);
+      setErrors({ email: "Error de conexión con el backend" });
+    }
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: C.bg }} className="flex flex-col">
+    <div style={{ minHeight: "100vh", background: "#0b0f19" }} className="flex flex-col">
       <AuthHeader />
       <AuthShell>
         <CardWrap maxWidth={820}>
@@ -274,15 +290,15 @@ function RegisterScreen({ nav }: { nav: (s: Screen) => void }) {
           
           <div className="grid gap-x-8 gap-y-5 p-8" style={{ gridTemplateColumns: "1fr 1fr" }}>
             <div>
-              <Label>Gamertag <span style={{ color: C.cyan }}>*</span></Label>
+              <Label>Gamertag <span style={{ color: "#00f0ff" }}>*</span></Label>
               <Field icon="fa-user" placeholder="Tu apodo en el juego" value={form.gamertag} onChange={set("gamertag")} error={errors.gamertag} />
             </div>
             <div>
-              <Label>Correo Electrónico <span style={{ color: C.cyan }}>*</span></Label>
+              <Label>Correo Electrónico <span style={{ color: "#00f0ff" }}>*</span></Label>
               <Field icon="fa-envelope" type="email" placeholder="tu@correo.com" value={form.email} onChange={set("email")} error={errors.email} />
             </div>
             <div>
-              <Label>Contraseña <span style={{ color: C.cyan }}>*</span></Label>
+              <Label>Contraseña <span style={{ color: "#00f0ff" }}>*</span></Label>
               <Field icon="fa-lock" type="password" placeholder="Mínimo 6 caracteres" value={form.password} onChange={set("password")} error={errors.password} />
             </div>
             <div>
@@ -295,15 +311,22 @@ function RegisterScreen({ nav }: { nav: (s: Screen) => void }) {
             </div>
             <div className="flex items-end">
               <div className="w-full flex items-center gap-3 rounded-lg px-4 py-[11px]" style={{ background: "rgba(0,240,255,0.04)", border: "1px solid rgba(0,240,255,0.18)" }}>
-                <i className="fa-solid fa-shield-halved text-xs" style={{ color: C.cyan }} />
-                <span className="text-xs" style={{ color: C.muted }}>Al registrarte aceptás nuestros <span style={{ color: C.cyan }}>Términos de Servicio</span></span>
+                <i className="fa-solid fa-shield-halved text-xs" style={{ color: "#00f0ff" }} />
+                <span className="text-xs" style={{ color: "#94a3b8" }}>Al registrarte aceptás nuestros <span style={{ color: "#00f0ff" }}>Términos de Servicio</span></span>
               </div>
             </div>
+            
             <div style={{ gridColumn: "1 / -1" }} className="flex flex-col gap-4 pt-1">
-              <BtnCyan type="button" onClick={handleRegister}>
+              <button
+                type="button"
+                onClick={handleRegister}
+                className="w-full py-3 rounded-lg font-bold text-black flex items-center justify-center transition-all cursor-pointer"
+                style={{ background: "#00f0ff", boxShadow: "0 0 20px rgba(0,240,255,0.4)" }}
+              >
                 <i className="fa-solid fa-user-plus mr-2" />CREAR MI CUENTA
-              </BtnCyan>
-              <p className="text-center text-sm" style={{ color: C.muted }}>
+              </button>
+
+              <p className="text-center text-sm" style={{ color: "#94a3b8" }}>
                 ¿Ya tenés cuenta?{" "}<TextLink onClick={() => nav("login")}>Iniciar Sesión</TextLink>
               </p>
             </div>
@@ -332,32 +355,41 @@ function LoginScreen({ nav }: { nav: (s: Screen) => void }) {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     // 1. Validar que no estén vacíos
     if (!id.trim() || !pass.trim()) {
       setErr("Por favor completá todos los campos.");
       return;
     }
 
-    // 2. Buscar usuario en el localStorage
-    const storedUserRaw = localStorage.getItem("gs_user");
-    if (!storedUserRaw) {
-      setErr("No hay ninguna cuenta registrada. Registrate primero.");
-      return;
-    }
+    try {
+      // 2. Petición fetch hacia tu backend de Node.js
+      const respuesta = await fetch("http://localhost:3000/api/usuarios/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: id.toLowerCase().trim(), // El backend busca por email en el usuarios.json
+          password: pass,
+        }),
+      });
 
-    const storedUser = JSON.parse(storedUserRaw);
-    const inputClean = id.toLowerCase().trim();
+      const datos = await respuesta.json();
 
-    // 3. Validar que coincida con el email o el gamertag Y la contraseña
-    const matchUser = inputClean === storedUser.email || inputClean === storedUser.gamertag.toLowerCase();
-    const matchPass = pass === storedUser.password;
-
-    if (matchUser && matchPass) {
-      setErr("");
-      nav("home"); // Único camino a la home si todo es correcto
-    } else {
-      setErr("Correo/Gamertag o contraseña incorrectos.");
+      if (respuesta.ok) {
+        setErr("");
+        // Guardamos los datos del usuario asegurando compatibilidad con la estructura del backend
+        const userToSave = datos.usuario || datos;
+        localStorage.setItem("gs_user", JSON.stringify(userToSave));
+        nav("home"); // Único camino a la home si todo es correcto
+      } else {
+        // Muestra el mensaje exacto que manda el backend (ej: "Usuario no encontrado" o "Contraseña incorrecta")
+        setErr(datos.error || "Credenciales incorrectas.");
+      }
+    } catch (error) {
+      console.error("Error al conectar con el servidor:", error);
+      setErr("No se pudo conectar con el servidor de Node.js.");
     }
   };
 
@@ -370,8 +402,8 @@ function LoginScreen({ nav }: { nav: (s: Screen) => void }) {
           
           <div className="flex flex-col gap-5 p-8">
             <div>
-              <Label>Correo o Gamertag</Label>
-              <Field icon="fa-user" placeholder="correo@ejemplo.com o tu gamertag" value={id} onChange={setId} />
+              <Label>Correo Electrónico</Label>
+              <Field icon="fa-user" placeholder="tu@correo.com" value={id} onChange={setId} />
             </div>
             <div>
               <div className="flex items-center justify-between mb-1.5">
@@ -417,23 +449,60 @@ function LoginScreen({ nav }: { nav: (s: Screen) => void }) {
     </div>
   );
 }
-// ─── Screen 3: Reset Password ─────────────────────────────────────────────────
+
 function ResetScreen({ nav }: { nav: (s: Screen) => void }) {
   const [email, setEmail] = useState("");
+  const [err, setErr] = useState("");
+
+  const handleRequestReset = async () => {
+    setErr("");
+    const emailLimpio = email.toLowerCase().trim();
+
+    if (!emailLimpio || !emailLimpio.includes("@") || !emailLimpio.includes(".")) {
+      setErr("Por favor ingresá un correo electrónico válido.");
+      return;
+    }
+
+    try {
+      // Consultamos al backend si el correo realmente existe en el usuarios.json
+      const respuesta = await fetch("http://localhost:3000/api/usuarios/verificar-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: emailLimpio }),
+      });
+
+      const datos = await respuesta.json();
+
+      if (respuesta.ok) {
+        // Si el correo existe, lo guardamos y pasamos a la siguiente pantalla
+        localStorage.setItem("gs_reset_email", emailLimpio);
+        nav("newpass");
+      } else {
+        // Si no existe, mostramos el error y frenamos acá
+        setErr(datos.error || "El correo ingresado no existe.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setErr("Error de conexión con el servidor.");
+    }
+  };
 
   return (
     <div style={{ minHeight: "100vh", background: C.bg }} className="flex flex-col">
       <AuthHeader />
       <AuthShell>
         <CardWrap maxWidth={480}>
-          <CardHead title="RESTABLECER CONTRASEÑA" sub="Ingresá tu correo y te enviamos el enlace de recuperación" />
+          <CardHead title="RESTABLECER CONTRASEÑA" sub="Ingresá tu correo para recuperar el acceso" />
           <div className="flex flex-col gap-5 p-8">
             <div>
               <Label>Correo Electrónico registrado</Label>
               <Field icon="fa-envelope" type="email" placeholder="tu@correo.com" value={email} onChange={setEmail} />
             </div>
-            <BtnCyan onClick={() => nav("newpass")}>
-              <i className="fa-solid fa-paper-plane mr-2" />ENVIAR ENLACE
+
+            {err && <p className="text-xs" style={{ color: "#f87171" }}>{err}</p>}
+
+            <BtnCyan type="button" onClick={handleRequestReset}>
+              <i className="fa-solid fa-paper-plane mr-2" />VERIFICAR CORREO
             </BtnCyan>
             <p className="text-center text-sm" style={{ color: C.muted }}>
               <TextLink onClick={() => nav("login")}>Volver al Login</TextLink>
@@ -444,14 +513,13 @@ function ResetScreen({ nav }: { nav: (s: Screen) => void }) {
     </div>
   );
 }
-
 // ─── Screen 4: New Password ───────────────────────────────────────────────────
 function NewPassScreen({ nav }: { nav: (s: Screen) => void }) {
   const [pass, setPass] = useState("");
   const [confirm, setConfirm] = useState("");
   const [err, setErr] = useState("");
 
-  const handleResetPass = () => {
+  const handleResetPass = async () => {
     if (!pass.trim() || !confirm.trim()) {
       setErr("Por favor completá todos los campos.");
       return;
@@ -465,16 +533,40 @@ function NewPassScreen({ nav }: { nav: (s: Screen) => void }) {
       return;
     }
 
-    // Actualizamos la contraseña en el localStorage si existe el usuario
-    const storedUserRaw = localStorage.getItem("gs_user");
-    if (storedUserRaw) {
-      const storedUser = JSON.parse(storedUserRaw);
-      storedUser.password = pass;
-      localStorage.setItem("gs_user", JSON.stringify(storedUser));
+    // 1. Recuperamos el correo que guardamos recién en el ResetScreen
+    const userEmail = localStorage.getItem("gs_reset_email");
+    
+    if (!userEmail) {
+      setErr("No se encontró el correo. Volvé a solicitar la recuperación.");
+      return;
     }
 
-    alert("¡Contraseña actualizada con éxito!");
-    nav("login");
+    try {
+      // 2. Mandamos la nueva contraseña al backend para que la actualice en el usuarios.json
+      const respuesta = await fetch("http://localhost:3000/api/usuarios/actualizar-password", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: userEmail,
+          nuevaPassword: pass,
+        }),
+      });
+
+      const datos = await respuesta.json();
+
+      if (respuesta.ok) {
+        // Limpiamos el email temporal del storage
+        localStorage.removeItem("gs_reset_email");
+
+        alert("¡Contraseña actualizada con éxito!");
+        nav("login");
+      } else {
+        setErr(datos.error || "No se pudo actualizar la contraseña.");
+      }
+    } catch (error) {
+      console.error("Error al conectar con el servidor:", error);
+      setErr("Error de conexión con el backend.");
+    }
   };
 
   return (
@@ -2066,10 +2158,13 @@ function FriendsIconBtn() {
   );
 }
 export default function App() {
-  const [screen, setScreen] = useState<Screen>("register");
+  // Inicializamos leyendo la última pantalla en la que estabas para que Vite no te reincie al registro
+  const [screen, setScreen] = useState<Screen>(() => {
+    const savedScreen = window.localStorage.getItem("gs_current_screen");
+    return (savedScreen as Screen) || "register";
+  });
   
   const nav = (s: Screen) => {
-    // BLINDAJE NUCLEAR USANDO WINDOW EXPLICITAMENTE
     let userSession = null;
     try {
       userSession = window.localStorage.getItem("gs_user");
@@ -2077,13 +2172,16 @@ export default function App() {
       console.error("Error accediendo al storage", e);
     }
 
-    // Si intenta entrar a pantallas protegidas sin sesión, se rechaza de inmediato
     if ((s === "home" || s === "lobby" || s === "profile") && !userSession) {
       alert("¡Acceso denegado! Tenés que iniciar sesión con una cuenta válida.");
       setScreen("login");
+      window.localStorage.setItem("gs_current_screen", "login");
       return;
     }
+
+    // Cambiamos de pantalla y guardamos el estado en el localStorage
     setScreen(s);
+    window.localStorage.setItem("gs_current_screen", s);
   };
 
   return (
