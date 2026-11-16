@@ -601,20 +601,89 @@ function NewPassScreen({ nav }: { nav: (s: Screen) => void }) {
     </div>
   );
 }
-
 // ─── Squad data ───────────────────────────────────────────────────────────────
 type Member = { name: string; avatar: string; mic: boolean };
 type Squad = { id: number; filled: number; total: number; mode: "2v2" | "3v3" | "4v4"; rank: string; rankColor: string; platform: "PC" | "PS4"; full: boolean; mic: boolean; members: Member[] };
 
 const SQUADS: Squad[] = [
-  { id: 104, filled: 2, total: 3, mode: "3v3", rank: "Platino", rankColor: "#94a3b8", platform: "PC", full: false, mic: true, members: [{ name: "usaA983", avatar: "https://i.pravatar.cc/100?img=11", mic: true }, { name: "madenih19", avatar: "https://i.pravatar.cc/100?img=33", mic: true }] },
-  { id: 105, filled: 1, total: 2, mode: "2v2", rank: "Diamante", rankColor: "#38bdf8", platform: "PS4", full: false, mic: true, members: [{ name: "StarBlaze", avatar: "https://i.pravatar.cc/100?img=47", mic: true }] },
-  { id: 106, filled: 3, total: 3, mode: "3v3", rank: "Champion", rankColor: "#f59e0b", platform: "PC", full: true, mic: false, members: [{ name: "Gamer_Pro99", avatar: "https://i.pravatar.cc/100?img=68", mic: false }, { name: "NxBolt", avatar: "https://i.pravatar.cc/100?img=52", mic: true }, { name: "VelocityX", avatar: "https://i.pravatar.cc/100?img=15", mic: false }] },
-  { id: 107, filled: 2, total: 4, mode: "4v4", rank: "Diamante", rankColor: "#38bdf8", platform: "PC", full: false, mic: true, members: [{ name: "SkyRocket", avatar: "https://i.pravatar.cc/100?img=60", mic: true }, { name: "AceDriver", avatar: "https://i.pravatar.cc/100?img=25", mic: false }] },
-  { id: 108, filled: 1, total: 3, mode: "3v3", rank: "Platino", rankColor: "#94a3b8", platform: "PS4", full: false, mic: false, members: [{ name: "DriftKing", avatar: "https://i.pravatar.cc/100?img=8", mic: false }] },
-  { id: 109, filled: 4, total: 4, mode: "4v4", rank: "Champion", rankColor: "#f59e0b", platform: "PC", full: true, mic: true, members: [{ name: "ZephyrRL", avatar: "https://i.pravatar.cc/100?img=41", mic: true }, { name: "NovaBurst", avatar: "https://i.pravatar.cc/100?img=57", mic: true }, { name: "PulseWave", avatar: "https://i.pravatar.cc/100?img=29", mic: true }, { name: "IronFlux", avatar: "https://i.pravatar.cc/100?img=6", mic: false }] },
-];
+  // ── PLATINO (6 salas) ───────────────────────────────────────────────────────
+  { 
+    id: 101, filled: 2, total: 3, mode: "3v3", rank: "Platino", rankColor: "#94a3b8", platform: "PC", full: false, mic: true, 
+    members: [{ name: "usaA983 (Platino)", avatar: "https://i.pravatar.cc/100?img=11", mic: true }, { name: "madenih19 (Platino)", avatar: "https://i.pravatar.cc/100?img=33", mic: true }] 
+  },
+  { 
+    id: 102, filled: 1, total: 2, mode: "2v2", rank: "Platino", rankColor: "#94a3b8", platform: "PS4", full: false, mic: false, 
+    members: [{ name: "DriftKing (Platino)", avatar: "https://i.pravatar.cc/100?img=8", mic: false }] 
+  },
+  { 
+    id: 103, filled: 3, total: 4, mode: "4v4", rank: "Platino", rankColor: "#94a3b8", platform: "PC", full: false, mic: true, 
+    members: [{ name: "Shadow12 (Platino)", avatar: "https://i.pravatar.cc/100?img=12", mic: true }, { name: "BlazeRunner (Platino)", avatar: "https://i.pravatar.cc/100?img=14", mic: true }, { name: "Vortex9 (Platino)", avatar: "https://i.pravatar.cc/100?img=16", mic: true }] 
+  },
+  { 
+    id: 104, filled: 2, total: 3, mode: "3v3", rank: "Platino", rankColor: "#94a3b8", platform: "PS4", full: false, mic: false, 
+    members: [{ name: "LunaFox (Platino)", avatar: "https://i.pravatar.cc/100?img=20", mic: false }, { name: "PixelGamer (Platino)", avatar: "https://i.pravatar.cc/100?img=22", mic: false }] 
+  },
+  { 
+    id: 105, filled: 4, total: 4, mode: "4v4", rank: "Platino", rankColor: "#94a3b8", platform: "PC", full: true, mic: true, 
+    members: [{ name: "TitanX (Platino)", avatar: "https://i.pravatar.cc/100?img=25", mic: true }, { name: "NeonByte (Platino)", avatar: "https://i.pravatar.cc/100?img=26", mic: true }, { name: "CyberKnight (Platino)", avatar: "https://i.pravatar.cc/100?img=27", mic: true }, { name: "AlphaWolf (Platino)", avatar: "https://i.pravatar.cc/100?img=28", mic: true }] 
+  },
+  { 
+    id: 106, filled: 1, total: 2, mode: "2v2", rank: "Platino", rankColor: "#94a3b8", platform: "PS4", full: false, mic: false, 
+    members: [{ name: "SilentAim (Platino)", avatar: "https://i.pravatar.cc/100?img=30", mic: false }] 
+  },
 
+  // ── DIAMANTE (6 salas) ──────────────────────────────────────────────────────
+  { 
+    id: 107, filled: 1, total: 2, mode: "2v2", rank: "Diamante", rankColor: "#38bdf8", platform: "PS4", full: false, mic: true, 
+    members: [{ name: "StarBlaze (Diamante)", avatar: "https://i.pravatar.cc/100?img=47", mic: true }] 
+  },
+  { 
+    id: 108, filled: 2, total: 4, mode: "4v4", rank: "Diamante", rankColor: "#38bdf8", platform: "PC", full: false, mic: true, 
+    members: [{ name: "SkyRocket (Diamante)", avatar: "https://i.pravatar.cc/100?img=60", mic: true }, { name: "AceDriver (Diamante)", avatar: "https://i.pravatar.cc/100?img=25", mic: true }] 
+  },
+  { 
+    id: 109, filled: 3, total: 3, mode: "3v3", rank: "Diamante", rankColor: "#38bdf8", platform: "PS4", full: true, mic: false, 
+    members: [{ name: "GhostRider (Diamante)", avatar: "https://i.pravatar.cc/100?img=35", mic: false }, { name: "DarkSniper (Diamante)", avatar: "https://i.pravatar.cc/100?img=36", mic: false }, { name: "ApexPredator (Diamante)", avatar: "https://i.pravatar.cc/100?img=37", mic: false }] 
+  },
+  { 
+    id: 110, filled: 2, total: 3, mode: "3v3", rank: "Diamante", rankColor: "#38bdf8", platform: "PC", full: false, mic: true, 
+    members: [{ name: "Quantum9 (Diamante)", avatar: "https://i.pravatar.cc/100?img=40", mic: true }, { name: "ZeroCool (Diamante)", avatar: "https://i.pravatar.cc/100?img=42", mic: true }] 
+  },
+  { 
+    id: 111, filled: 4, total: 4, mode: "4v4", rank: "Diamante", rankColor: "#38bdf8", platform: "PS4", full: true, mic: false, 
+    members: [{ name: "Valkyrie (Diamante)", avatar: "https://i.pravatar.cc/100?img=45", mic: false }, { name: "Spartan99 (Diamante)", avatar: "https://i.pravatar.cc/100?img=46", mic: false }, { name: "VenomSnake (Diamante)", avatar: "https://i.pravatar.cc/100?img=48", mic: false }, { name: "RogueOne (Diamante)", avatar: "https://i.pravatar.cc/100?img=49", mic: false }] 
+  },
+  { 
+    id: 112, filled: 1, total: 2, mode: "2v2", rank: "Diamante", rankColor: "#38bdf8", platform: "PC", full: false, mic: false, 
+    members: [{ name: "HyperDrive (Diamante)", avatar: "https://i.pravatar.cc/100?img=50", mic: false }] 
+  },
+
+  // ── CHAMPION (6 salas) ──────────────────────────────────────────────────────
+  { 
+    id: 113, filled: 3, total: 3, mode: "3v3", rank: "Champion", rankColor: "#f59e0b", platform: "PC", full: true, mic: false, 
+    members: [{ name: "Gamer_Pro99 (Champion)", avatar: "https://i.pravatar.cc/100?img=68", mic: false }, { name: "NxBolt (Champion)", avatar: "https://i.pravatar.cc/100?img=52", mic: false }, { name: "VelocityX (Champion)", avatar: "https://i.pravatar.cc/100?img=15", mic: false }] 
+  },
+  { 
+    id: 114, filled: 4, total: 4, mode: "4v4", rank: "Champion", rankColor: "#f59e0b", platform: "PC", full: true, mic: true, 
+    members: [{ name: "ZephyrRL (Champion)", avatar: "https://i.pravatar.cc/100?img=41", mic: true }, { name: "NovaBurst (Champion)", avatar: "https://i.pravatar.cc/100?img=57", mic: true }, { name: "PulseWave (Champion)", avatar: "https://i.pravatar.cc/100?img=29", mic: true }, { name: "IronFlux (Champion)", avatar: "https://i.pravatar.cc/100?img=6", mic: true }] 
+  },
+  { 
+    id: 115, filled: 2, total: 2, mode: "2v2", rank: "Champion", rankColor: "#f59e0b", platform: "PS4", full: true, mic: true, 
+    members: [{ name: "KratosGod (Champion)", avatar: "https://i.pravatar.cc/100?img=61", mic: true }, { name: "AresBlade (Champion)", avatar: "https://i.pravatar.cc/100?img=62", mic: true }] 
+  },
+  { 
+    id: 116, filled: 1, total: 3, mode: "3v3", rank: "Champion", rankColor: "#f59e0b", platform: "PS4", full: false, mic: false, 
+    members: [{ name: "ShadowKing (Champion)", avatar: "https://i.pravatar.cc/100?img=63", mic: false }] 
+  },
+  { 
+    id: 117, filled: 3, total: 4, mode: "4v4", rank: "Champion", rankColor: "#f59e0b", platform: "PC", full: false, mic: true, 
+    members: [{ name: "StarkNet (Champion)", avatar: "https://i.pravatar.cc/100?img=64", mic: true }, { name: "MatrixCode (Champion)", avatar: "https://i.pravatar.cc/100?img=65", mic: true }, { name: "NexusPrime (Champion)", avatar: "https://i.pravatar.cc/100?img=66", mic: true }] 
+  },
+  { 
+    id: 118, filled: 2, total: 2, mode: "2v2", rank: "Champion", rankColor: "#f59e0b", platform: "PS4", full: true, mic: false, 
+    members: [{ name: "SonyMaster (Champion)", avatar: "https://i.pravatar.cc/100?img=67", mic: false }, { name: "DualShock (Champion)", avatar: "https://i.pravatar.cc/100?img=69", mic: false }] 
+  },
+];
 function SlotPips({ filled, total }: { filled: number; total: number }) {
   return (
     <div className="flex gap-1.5 items-center">
@@ -625,72 +694,6 @@ function SlotPips({ filled, total }: { filled: number; total: number }) {
     </div>
   );
 }
-
-function SquadCard({ squad, onJoin }: { squad: Squad; onJoin: () => void }) {
-  const empty = squad.total - squad.filled;
-  return (
-    <div
-      className="rounded-2xl flex flex-col overflow-hidden transition-all duration-300"
-      style={{ background: C.card, border: `1px solid ${squad.full ? "rgba(71,85,105,0.4)" : C.border}`, backdropFilter: "blur(10px)" }}
-      onMouseEnter={(e) => { if (!squad.full) e.currentTarget.style.boxShadow = "0 0 22px rgba(0,240,255,0.13)"; }}
-      onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "none"; }}
-    >
-      <div className="flex justify-between items-center px-5 py-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-        <div className="flex items-center gap-2.5">
-          <span className="font-orbitron text-sm font-black" style={{ color: C.main }}>SQUAD #{squad.id}</span>
-          {squad.mic && <i className="fa-solid fa-microphone text-xs" style={{ color: C.cyan }} />}
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-bold px-2 py-0.5 rounded" style={{ background: squad.full ? "rgba(71,85,105,0.25)" : `${squad.rankColor}22`, color: squad.full ? "#64748b" : squad.rankColor, border: `1px solid ${squad.full ? "#475569" : squad.rankColor + "44"}` }}>{squad.rank}</span>
-          <span className="text-xs font-bold px-2 py-0.5 rounded" style={{ background: "rgba(176,38,255,0.15)", color: C.purple, border: "1px solid rgba(176,38,255,0.3)" }}>{squad.platform}</span>
-        </div>
-      </div>
-      <div className="px-5 pt-3 pb-2 flex items-center justify-between">
-        <span className="text-xs font-semibold" style={{ color: C.muted }}>
-          <i className="fa-solid fa-gamepad mr-1.5" style={{ color: squad.rankColor, opacity: 0.7 }} />{squad.mode} Rankeado
-        </span>
-        <SlotPips filled={squad.filled} total={squad.total} />
-      </div>
-      <div className="px-5 pb-3 flex flex-col gap-2 flex-1">
-        {squad.members.map((m) => (
-          <div key={m.name} className="flex items-center gap-2.5">
-            <div className="relative shrink-0">
-              <img src={m.avatar} alt={m.name} className="w-7 h-7 rounded-full" style={{ border: "1.5px solid rgba(0,240,255,0.4)" }} />
-              <span className="absolute -bottom-0.5 -right-0.5 rounded-full" style={{ width: "8px", height: "8px", background: C.green, border: "1.5px solid #080c14", boxShadow: "0 0 4px rgba(0,255,102,0.7)" }} />
-            </div>
-            <span className="text-xs font-semibold flex-1 truncate" style={{ color: C.main }}>{m.name}</span>
-            <span className="text-xs font-bold" style={{ color: C.green }}>EN LÍNEA</span>
-            <i className={`fa-solid ${m.mic ? "fa-microphone" : "fa-microphone-slash"} text-xs`} style={{ color: m.mic ? C.cyan : "#475569" }} />
-          </div>
-        ))}
-        {Array.from({ length: empty }).map((_, i) => (
-          <div key={`e${i}`} className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0" style={{ border: "1.5px dashed #334155", background: "rgba(255,255,255,0.02)" }}>
-              <i className="fa-solid fa-user-plus" style={{ color: "#334155", fontSize: "9px" }} />
-            </div>
-            <span className="text-xs italic" style={{ color: "#334155" }}>Lugar disponible</span>
-          </div>
-        ))}
-      </div>
-      <div className="px-4 pb-4 pt-2">
-        {squad.full ? (
-          <div className="w-full rounded-lg py-2.5 text-center font-orbitron font-black text-xs" style={{ background: "rgba(71,85,105,0.15)", border: "2px solid #475569", color: "#475569" }}>SALA LLENA</div>
-        ) : (
-          <button
-            onClick={onJoin}
-            className="w-full rounded-lg py-2.5 font-orbitron font-black text-xs text-white cursor-pointer transition-all duration-200"
-            style={{ background: "linear-gradient(135deg,rgba(0,240,255,0.2),rgba(0,240,255,0.5))", border: `2px solid ${C.cyan}`, boxShadow: "0 0 10px rgba(0,240,255,0.28)", letterSpacing: "0.05em" }}
-            onMouseEnter={(e) => { e.currentTarget.style.boxShadow = glowCyan; }}
-            onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 0 10px rgba(0,240,255,0.28)"; }}
-          >
-            <i className="fa-solid fa-right-to-bracket mr-1.5" />UNIRME · {squad.mode} {squad.rank}
-          </button>
-        )}
-      </div>
-    </div>
-  );
-}
-
 // ─── Crear Squad Modal ────────────────────────────────────────────────────────
 function CreateSquadModal({ onClose, onCreate }: { onClose: () => void; onCreate: () => void }) {
   const [name, setName] = useState("");
@@ -748,9 +751,72 @@ function CreateSquadModal({ onClose, onCreate }: { onClose: () => void; onCreate
     </div>
   );
 }
-
+function SquadCard({ squad, onJoin }: { squad: Squad; onJoin: (squad: Squad) => void }) {
+  const empty = squad.total - squad.filled;
+  return (
+    <div
+      className="rounded-2xl flex flex-col overflow-hidden transition-all duration-300"
+      style={{ background: C.card, border: `1px solid ${squad.full ? "rgba(71,85,105,0.4)" : C.border}`, backdropFilter: "blur(10px)" }}
+      onMouseEnter={(e) => { if (!squad.full) e.currentTarget.style.boxShadow = "0 0 22px rgba(0,240,255,0.13)"; }}
+      onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "none"; }}
+    >
+      <div className="flex justify-between items-center px-5 py-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+        <div className="flex items-center gap-2.5">
+          <span className="font-orbitron text-sm font-black" style={{ color: C.main }}>SQUAD #{squad.id}</span>
+          {squad.mic && <i className="fa-solid fa-microphone text-xs" style={{ color: C.cyan }} />}
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-bold px-2 py-0.5 rounded" style={{ background: squad.full ? "rgba(71,85,105,0.25)" : `${squad.rankColor}22`, color: squad.full ? "#64748b" : squad.rankColor, border: `1px solid ${squad.full ? "#475569" : squad.rankColor + "44"}` }}>{squad.rank}</span>
+          <span className="text-xs font-bold px-2 py-0.5 rounded" style={{ background: "rgba(176,38,255,0.15)", color: C.purple, border: "1px solid rgba(176,38,255,0.3)" }}>{squad.platform}</span>
+        </div>
+      </div>
+      <div className="px-5 pt-3 pb-2 flex items-center justify-between">
+        <span className="text-xs font-semibold" style={{ color: C.muted }}>
+          <i className="fa-solid fa-gamepad mr-1.5" style={{ color: squad.rankColor, opacity: 0.7 }} />{squad.mode} Rankeado
+        </span>
+        <SlotPips filled={squad.filled} total={squad.total} />
+      </div>
+      <div className="px-5 pb-3 flex flex-col gap-2 flex-1">
+        {squad.members.map((m) => (
+          <div key={m.name} className="flex items-center gap-2.5">
+            <div className="relative shrink-0">
+              <img src={m.avatar} alt={m.name} className="w-7 h-7 rounded-full" style={{ border: "1.5px solid rgba(0,240,255,0.4)" }} />
+              <span className="absolute -bottom-0.5 -right-0.5 rounded-full" style={{ width: "8px", height: "8px", background: C.green, border: "1.5px solid #080c14", boxShadow: "0 0 4px rgba(0,255,102,0.7)" }} />
+            </div>
+            <span className="text-xs font-semibold flex-1 truncate" style={{ color: C.main }}>{m.name}</span>
+            <span className="text-xs font-bold" style={{ color: C.green }}>EN LÍNEA</span>
+            <i className={`fa-solid ${m.mic ? "fa-microphone" : "fa-microphone-slash"} text-xs`} style={{ color: m.mic ? C.cyan : "#475569" }} />
+          </div>
+        ))}
+        {Array.from({ length: empty }).map((_, i) => (
+          <div key={`e${i}`} className="flex items-center gap-2.5">
+            <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0" style={{ border: "1.5px dashed #334155", background: "rgba(255,255,255,0.02)" }}>
+              <i className="fa-solid fa-user-plus" style={{ color: "#334155", fontSize: "9px" }} />
+            </div>
+            <span className="text-xs italic" style={{ color: "#334155" }}>Lugar disponible</span>
+          </div>
+        ))}
+      </div>
+      <div className="px-4 pb-4 pt-2">
+        {squad.full ? (
+          <div className="w-full rounded-lg py-2.5 text-center font-orbitron font-black text-xs" style={{ background: "rgba(71,85,105,0.15)", border: "2px solid #475569", color: "#475569" }}>SALA LLENA</div>
+        ) : (
+          <button
+            onClick={() => onJoin(squad)}
+            className="w-full rounded-lg py-2.5 font-orbitron font-black text-xs text-white cursor-pointer transition-all duration-200"
+            style={{ background: "linear-gradient(135deg,rgba(0,240,255,0.2),rgba(0,240,255,0.5))", border: `2px solid ${C.cyan}`, boxShadow: "0 0 10px rgba(0,240,255,0.28)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 20px rgba(0,240,255,0.5)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 0 10px rgba(0,240,255,0.28)"; }}
+          >
+            <i className="fa-solid fa-right-to-bracket mr-1.5" />UNIRME · {squad.mode} {squad.rank}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
 // ─── Tab: Inicio (Squad Search) ───────────────────────────────────────────────
-function InicioTab({ nav }: { nav: (s: Screen) => void }) {
+function InicioTab({ nav, setSelectedSquad }: { nav: (s: Screen) => void; setSelectedSquad?: any }) {
   const [search, setSearch] = useState("");
   const [rank, setRank] = useState("Todos");
   const [platform, setPlatform] = useState("Todos");
@@ -845,7 +911,16 @@ function InicioTab({ nav }: { nav: (s: Screen) => void }) {
         </div>
       ) : (
         <div className="grid gap-5" style={{ gridTemplateColumns: "repeat(3,1fr)" }}>
-          {filtered.map((s) => <SquadCard key={s.id} squad={s} onJoin={() => nav("lobby")} />)}
+          {filtered.map((s) => (
+            <SquadCard 
+              key={s.id} 
+              squad={s} 
+              onJoin={(squadSeleccionada) => {
+                if (setSelectedSquad) setSelectedSquad(squadSeleccionada);
+                nav("lobby");
+              }} 
+            />
+          ))}
         </div>
       )}
 
@@ -853,7 +928,6 @@ function InicioTab({ nav }: { nav: (s: Screen) => void }) {
     </div>
   );
 }
-
 // ─── Tab: Partidas ────────────────────────────────────────────────────────────
 const TORNEOS = [
   { id: 1, nombre: "Copa Semanal 2v2", modo: "2v2 Rankeado", fecha: "Sáb 07 Sep", hora: "20:00 ARG", cupos: 12, maxCupos: 16, premio: "500 GS Coins", color: C.cyan },
@@ -1419,20 +1493,21 @@ function MessagesDropdown({ onChatOpen }: { onChatOpen: (chat: typeof dmChats[0]
 }
 // ─── Screen 5: Home (shell con tabs) ─────────────────────────────────────────
 type HomeTab = "Inicio" | "Partidas" | "Equipos" | "Comunidad";
-
-function HomeScreen({ nav }: { nav: (s: Screen) => void }) {
+function HomeScreen({ nav, setSelectedSquad }: { nav: (s: Screen) => void; setSelectedSquad?: any }) {
   const [tab, setTab] = useState<HomeTab>("Inicio");
   const [notifOpen, setNotifOpen] = useState(false);
   const [notifRead, setNotifRead] = useState(false);
   const [mailOpen, setMailOpen] = useState(false);
   const [activeChat, setActiveChat] = useState<typeof dmChats[0] | null>(null);
+  
   useEffect(() => {
-  const handleOpenChat = (e: any) => {
-    setActiveChat(e.detail);
-  };
-  window.addEventListener("open-user-chat", handleOpenChat);
-  return () => window.removeEventListener("open-user-chat", handleOpenChat);
-}, []);
+    const handleOpenChat = (e: any) => {
+      setActiveChat(e.detail);
+    };
+    window.addEventListener("open-user-chat", handleOpenChat);
+    return () => window.removeEventListener("open-user-chat", handleOpenChat);
+  }, []);
+
   const bellRef = useRef<HTMLDivElement>(null);
   const mailRef = useRef<HTMLDivElement>(null);
 
@@ -1518,7 +1593,7 @@ function HomeScreen({ nav }: { nav: (s: Screen) => void }) {
         </div>
       </header>
 
-      {tab === "Inicio" && <InicioTab nav={nav} />}
+      {tab === "Inicio" && <InicioTab nav={nav} setSelectedSquad={setSelectedSquad} />}
       {tab === "Partidas" && <PartidasTab />}
       {tab === "Equipos" && <EquiposTab />}
       {tab === "Comunidad" && <ComunidadTab />}
@@ -1528,28 +1603,31 @@ function HomeScreen({ nav }: { nav: (s: Screen) => void }) {
   );
 }
 
-// ─── Screen 6: Lobby ─────────────────────────────────────────────────────────
-const LOBBY_PLAYERS = [
-  { id: 1, name: "usaA983", avatar: "https://i.pravatar.cc/100?img=11", tag: "Líder", tagColor: C.purple, status: "LISTO", rank: "Platino", mic: true, rowClass: "leader" },
-  { id: 2, name: "madenih19", avatar: "https://i.pravatar.cc/100?img=33", tag: "Vos", tagColor: C.cyan, status: "LISTO", rank: "Diamante", mic: true, rowClass: "user" },
-  { id: 3, name: "Gamer_Pro99", avatar: "https://i.pravatar.cc/100?img=68", tag: null, tagColor: "", status: "ESPERANDO", rank: "Platino", mic: false, rowClass: "" },
-];
-
-function NativeVoiceChannel() {
+function NativeVoiceChannel({ squad }: { squad?: any }) {
   const [muted, setMuted] = useState(false);
   const [deafened, setDeafened] = useState(false);
 
-  const speakers = [
-    { name: "usaA983", avatar: "https://i.pravatar.cc/100?img=11", speaking: true, mic: true },
-    { name: "madenih19", avatar: "https://i.pravatar.cc/100?img=33", speaking: false, mic: true },
-    { name: "Gamer_Pro99", avatar: "https://i.pravatar.cc/100?img=68", speaking: false, mic: false },
-  ];
+  const squadData = squad || {
+    id: 104,
+    members: [
+      { name: "usaA983", avatar: "https://i.pravatar.cc/100?img=11", mic: true },
+      { name: "madenih19", avatar: "https://i.pravatar.cc/100?img=33", mic: true },
+      { name: "Gamer_Pro99", avatar: "https://i.pravatar.cc/100?img=68", mic: false }
+    ]
+  };
+
+  const speakers = squadData.members.map((m: any, idx: number) => ({
+    name: m.name,
+    avatar: m.avatar,
+    speaking: idx === 0,
+    mic: m.mic
+  }));
 
   return (
     <PanelBox>
-      <PanelLabel>Canal de Voz — Sala Squad #104</PanelLabel>
+      <PanelLabel>Canal de Voz — Sala Squad #{squadData.id}</PanelLabel>
       <div className="flex flex-col gap-2 mb-4">
-        {speakers.map((s) => (
+        {speakers.map((s: any) => (
           <div key={s.name} className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all" style={{ background: s.speaking ? "rgba(0,240,255,0.07)" : "rgba(255,255,255,0.02)", border: `1px solid ${s.speaking ? "rgba(0,240,255,0.35)" : "rgba(255,255,255,0.05)"}` }}>
             <div className="relative shrink-0">
               <img src={s.avatar} alt={s.name} className="w-8 h-8 rounded-full" style={{ border: `2px solid ${s.speaking ? C.cyan : "#334155"}`, boxShadow: s.speaking ? "0 0 8px rgba(0,240,255,0.5)" : "none" }} />
@@ -1589,10 +1667,31 @@ function NativeVoiceChannel() {
     </PanelBox>
   );
 }
-
-function LobbyScreen({ nav }: { nav: (s: Screen) => void }) {
+function LobbyScreen({ nav, selectedSquad }: { nav: (s: Screen) => void; selectedSquad?: any }) {
   const [copied, setCopied] = useState(false);
   const copy = () => { navigator.clipboard.writeText("#RL-8829-X").catch(() => {}); setCopied(true); setTimeout(() => setCopied(false), 2000); };
+
+  const squadData = selectedSquad || {
+    id: 104,
+    rank: "Platino",
+    members: [
+      { name: "usaA983", avatar: "https://i.pravatar.cc/100?img=11", mic: true },
+      { name: "madenih19", avatar: "https://i.pravatar.cc/100?img=33", mic: true },
+      { name: "Gamer_Pro99", avatar: "https://i.pravatar.cc/100?img=68", mic: false }
+    ]
+  };
+
+  const lobbyPlayers = squadData.members.map((member: any, index: number) => ({
+    id: index + 1,
+    name: member.name,
+    avatar: member.avatar,
+    tag: index === 0 ? "Líder" : (index === 1 ? "Vos" : null),
+    tagColor: index === 0 ? C.purple : (index === 1 ? C.cyan : ""),
+    status: "LISTO",
+    rank: squadData.rank,
+    mic: member.mic,
+    rowClass: index === 0 ? "leader" : (index === 1 ? "user" : "")
+  }));
 
   return (
     <div style={{ minHeight: "100vh", background: C.bg }} className="flex flex-col">
@@ -1615,12 +1714,12 @@ function LobbyScreen({ nav }: { nav: (s: Screen) => void }) {
       </header>
 
       <div className="max-w-[1380px] mx-auto mt-8 px-6 pb-20 w-full">
-        <PageTitle>LOBBY INTERNO — SQUAD #104</PageTitle>
+        <PageTitle>LOBBY INTERNO — SQUAD #{squadData.id}</PageTitle>
         <div className="grid gap-8" style={{ gridTemplateColumns: "2fr 1fr" }}>
           <PanelBox>
-            <PanelLabel>Integrantes del Squad (3/3)</PanelLabel>
+            <PanelLabel>Integrantes del Squad ({squadData.members.length}/{squadData.members.length})</PanelLabel>
             <div className="flex flex-col gap-3">
-              {LOBBY_PLAYERS.map((p) => {
+              {lobbyPlayers.map((p: any) => {
                 const border = p.rowClass === "leader" ? C.purple : p.rowClass === "user" ? C.cyan : "transparent";
                 const shadow = p.rowClass === "leader" ? "0 0 12px rgba(176,38,255,0.2)" : p.rowClass === "user" ? "0 0 12px rgba(0,240,255,0.2)" : "none";
                 return (
@@ -1645,7 +1744,7 @@ function LobbyScreen({ nav }: { nav: (s: Screen) => void }) {
           </PanelBox>
 
           <div className="flex flex-col gap-5">
-            <NativeVoiceChannel />
+            <NativeVoiceChannel squad={squadData} />
             <PanelBox>
               <PanelLabel>Código de Sala en el Juego</PanelLabel>
               <div className="rounded-lg p-4 flex justify-between items-center font-mono text-lg font-bold mb-4" style={{ background: "#0f172a", border: `1px dashed ${C.cyan}`, color: C.cyan }}>
@@ -1669,7 +1768,6 @@ function LobbyScreen({ nav }: { nav: (s: Screen) => void }) {
     </div>
   );
 }
-
 // ─── Screen 7: Profile ────────────────────────────────────────────────────────
 const STATS = [
   { label: "Partidas Jugadas", value: "142", icon: "fa-gamepad", color: C.cyan },
@@ -2158,6 +2256,9 @@ function FriendsIconBtn() {
   );
 }
 export default function App() {
+  // Estado para guardar la sala exacta en la que hiciste clic
+  const [selectedSquad, setSelectedSquad] = useState<any>(null);
+
   // Inicializamos leyendo la última pantalla en la que estabas para que Vite no te reincie al registro
   const [screen, setScreen] = useState<Screen>(() => {
     const savedScreen = window.localStorage.getItem("gs_current_screen");
@@ -2193,8 +2294,8 @@ export default function App() {
         {screen === "login" && <LoginScreen nav={nav} />}
         {screen === "reset" && <ResetScreen nav={nav} />}
         {screen === "newpass" && <NewPassScreen nav={nav} />}
-        {screen === "home" && <HomeScreen nav={nav} />}
-        {screen === "lobby" && <LobbyScreen nav={nav} />}
+        {screen === "home" && <HomeScreen nav={nav} setSelectedSquad={setSelectedSquad} />}
+        {screen === "lobby" && <LobbyScreen nav={nav} selectedSquad={selectedSquad} />}
         {screen === "profile" && <ProfileScreen nav={nav} />}
         
         <FriendsDrawer />

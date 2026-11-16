@@ -1,12 +1,45 @@
 # GAMESQUAD
 *Integrantes:* Guadalupe Aguilar Morón
-*Descripción:* Plataforma web de matchmaking para gamers desarrollada con React y Vite. Ejercitación 4.1.
+## Descripción
+- *Problema que resuelve:* En los videojuegos multijugador competitivos, los jugadores suelen enfrentarse a partidas frustrantes por la falta de comunicación, toxicidad y la disparidad de rangos en el matchmaking automático. GameSquad permite encontrar compañeros de equipo (squads) compatibles mediante filtros de rango, idioma y micrófono activo, con integración directa a llamadas de voz.
 
-## Comandos para ejecutar el proyecto
-- npm install (Instala las dependencias)
-- npm run dev (Ejecuta el servidor local)
-- npm run build (Genera la versión de producción)
+- *Qué incluye esta versión final:* Aplicación web completa estructurada en un entorno full-stack, con una API REST en Node.js/Express para la gestión de datos, un frontend dinámico desarrollado en React con componentes reutilizables, y el cumplimiento de los requisitos mínimo.
 
-## Enlaces
-- *Sitio publicado:* [https://silver-froyo-390f2e.netlify.app]
-- *Prototipo en Figma:* (https://www.figma.com/make/5aYR1K57CRL8hsVRhKqeS2/GAMESQUAD-Interactive-Prototype?t=2QYZRN8sXUmDs5HT-6)
+## Comandos	para instalar y	ejecutar el	programa
+# Backend
+- En la primer terminal, ejecutás lo siguiente:
+cd backend (enter)
+npm install (enter)
+npm run dev (enter)
+- El servidor debería mostrarte un mensaje como "Servidor en http://localhost:3000".
+# Frontend
+- Sin cerrar la primer terminal, abrí una segunda terminal nueva y ejecutá:
+cd frontend (enter)
+npm install (enter)
+npm run dev (enter)
+- Vite iniciará la aplicación y te dará una dirección local (ejemplo:http://localhost:5173), si abris esa dirección en el navegador, verás la interfaz de GameSquad conectada a la API.
+
+## Lista de Endpoints de la API
+# Estado del Servidor
+* `GET /api/salud` — Verifica que el servidor esté activo y respondiendo correctamente (`{ estado: "ok" }`).
+
+# Usuarios y Autenticación (`/api/usuarios`)
+* `POST /api/usuarios/registro` — Registra un nuevo usuario en la base de datos.
+* `POST /api/usuarios/login` — Inicia sesión y valida las credenciales del usuario.
+* `PUT /api/usuarios/actualizar-password` — Actualiza la contraseña de un usuario existente.
+* `POST /api/usuarios/verificar-email` — Verifica si un correo electrónico está registrado en el sistema.
+
+# Juegos (`/api/juegos`)
+* `GET /api/juegos` — Obtiene el listado completo de juegos registrados.
+* `POST /api/juegos` — Crea y registra un nuevo juego en la base de datos.
+
+## Capturas de pantalla Computadora
+-Registro de usuario
+![Pantalla de registro](./docs/images/registro.png)
+
+
+
+
+
+
+
