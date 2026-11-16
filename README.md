@@ -38,6 +38,15 @@ npm run dev (enter)
 ![Registro](/docs/images/Registro.png)
 -Inicio de sesión
 ![Inicio de Sesión](/docs/images/InicioSesion.png)
+-Pantalla Home
+![Pantalla Home](/docs/images/Home.png)
+-Perfil de usuario
+![Pantalla perfil del usuario](/docs/images/Perfil.png)
+-Lobby Interno
+![Pantalla del lobby interno](/docs/images/LobbyInterno.png)
+
+
+
 
 
 
