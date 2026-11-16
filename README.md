@@ -44,6 +44,14 @@ npm run dev (enter)
 ![Pantalla perfil del usuario](/docs/images/Perfil.png)
 -Lobby Interno
 ![Pantalla del lobby interno](/docs/images/LobbyInterno.png)
+-Pantalla de Partidas
+![Partidas](/docs/images/Partidas.png)
+-Pantalla de mi Equipo
+![Partidas](/docs/images/Equipos.png)
+-Pantalla de la comunidad
+![Comunidad](/docs/images/Comunidad.png)
+
+
 
 
 
