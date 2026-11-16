@@ -36,6 +36,9 @@ npm run dev (enter)
 ## Capturas de pantalla Computadora
 -Registro de usuario
 ![Registro](/docs/images/Registro.png)
+-Inicio de sesión
+![Inicio de Sesión](/docs/images/InicioSesion.png)
+
 
 
 
