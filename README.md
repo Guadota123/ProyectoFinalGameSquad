@@ -35,7 +35,7 @@ npm run dev (enter)
 
 ## Capturas de pantalla Computadora
 -Registro de usuario
-![Pantalla de registro](./docs/images/registro.png)
+![Registro](/docs/images/registro.png)
 
 
 
