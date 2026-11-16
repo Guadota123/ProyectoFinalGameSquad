@@ -53,21 +53,21 @@ npm run dev (enter)
 
 ## Capturas de pantalla Celular
 -Registro de usuario
-![Registro](/docs/images/registrocel.png)
+![Registro](docs/images/registrocel.png)
 - Inicio de sesión
-![Inicio de sesión](/docs/images/iniciosesioncel.png)
+![Inicio de sesión](docs/images/iniciosesioncel.png)
 -Pantalla Home
-![Pantalla Home](/docs/images/homecel.png)
+![Pantalla Home](docs/images/homecel.png)
 -Perfil de usuario
-![Pantalla perfil de usuario](/docs/images/perfilcel.png)
+![Pantalla perfil de usuario](docs/images/perfilcel.png)
 -Lobby Interno
-![Pantalla del lobby interno](/docs/images/lobbycel.png)
+![Pantalla del lobby interno](docs/images/lobbycel.png)
 -Pantalla de partidas
-![Partidas](/docs/images/partidascel.png)
+![Partidas](docs/images/partidascel.png)
 -Pantalla de mi equipo
-![Mi equipo](/docs/images/equipocel.png)
+![Mi equipo](docs/images/equipocel.png)
 -Pantalla de la comunidad
-![Comunidad](/docs/images/comunidadcel.png)
+![Comunidad](docs/images/comunidadcel.png)
 
 
 
