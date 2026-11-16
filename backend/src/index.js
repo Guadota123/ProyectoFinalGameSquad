@@ -16,6 +16,7 @@ app.get('/api/salud', (req, res) => {
 app.use('/api/juegos', juegosRoutes);
 app.use('/api/usuarios', usuariosRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Servidor escuchando en http://localhost:${PORT}`);
+// '0.0.0.0' permite que acepte peticiones externas de otros dispositivos en tu Wi-Fi (como tu celular)
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Servidor escuchando en la red en el puerto ${PORT}`);
 });

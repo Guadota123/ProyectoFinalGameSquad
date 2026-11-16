@@ -238,26 +238,16 @@ function PanelLabel({ children }: { children: React.ReactNode }) {
 }
 function RegisterScreen({ nav }: { nav: (s: Screen) => void }) {
   const [form, setForm] = useState({ gamertag: "", email: "", password: "", platform: "PC" });
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const set = (k: keyof typeof form) => (v: string) => setForm((f) => ({ ...f, [k]: v }));
+  const [errors, setErrors] = useState<{ gamertag?: string; email?: string; password?: string }>({});
+
+  const set = (field: string) => (e: any) => {
+    const val = typeof e === "string" ? e : e.target.value;
+    setForm((prev) => ({ ...prev, [field]: val }));
+  };
 
   const handleRegister = async () => {
-    // Ya sacamos el alert de prueba de acá arriba
-    
-    const err: Record<string, string> = {};
-    setErrors({});
-
-    if (!form.gamertag.trim()) err.gamertag = "El gamertag es obligatorio";
-    if (!form.email.includes("@") || !form.email.includes(".")) err.email = "Correo electrónico inválido";
-    if (form.password.length < 6) err.password = "Mínimo 6 caracteres";
-
-    if (Object.keys(err).length > 0) {
-      setErrors(err);
-      return; 
-    }
-
     try {
-      const respuesta = await fetch("http://localhost:3000/api/usuarios/registro", {
+      const respuesta = await fetch("http://192.168.1.117:3000/api/usuarios/registro", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -268,7 +258,6 @@ function RegisterScreen({ nav }: { nav: (s: Screen) => void }) {
       });
 
       if (respuesta.ok) {
-        // Mensaje limpio de éxito cuando el backend confirma el registro
         alert("¡Cuenta creada con éxito! Ya podés iniciar sesión.");
         nav("login");
       } else {
@@ -337,13 +326,13 @@ function RegisterScreen({ nav }: { nav: (s: Screen) => void }) {
     </div>
   );
 }
+
 function LoginScreen({ nav }: { nav: (s: Screen) => void }) {
   const [id, setId] = useState("");
   const [pass, setPass] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [err, setErr] = useState("");
 
-  // Truco para forzar el foco y destrabar el teclado al montar la pantalla
   useEffect(() => {
     const timer = setTimeout(() => {
       const firstInput = document.querySelector('input') as HTMLInputElement;
@@ -356,21 +345,19 @@ function LoginScreen({ nav }: { nav: (s: Screen) => void }) {
   }, []);
 
   const handleLogin = async () => {
-    // 1. Validar que no estén vacíos
     if (!id.trim() || !pass.trim()) {
       setErr("Por favor completá todos los campos.");
       return;
     }
 
     try {
-      // 2. Petición fetch hacia tu backend de Node.js
-      const respuesta = await fetch("http://localhost:3000/api/usuarios/login", {
+      const respuesta = await fetch("http://192.168.1.117:3000/api/usuarios/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: id.toLowerCase().trim(), // El backend busca por email en el usuarios.json
+          email: id.toLowerCase().trim(),
           password: pass,
         }),
       });
@@ -379,12 +366,10 @@ function LoginScreen({ nav }: { nav: (s: Screen) => void }) {
 
       if (respuesta.ok) {
         setErr("");
-        // Guardamos los datos del usuario asegurando compatibilidad con la estructura del backend
         const userToSave = datos.usuario || datos;
         localStorage.setItem("gs_user", JSON.stringify(userToSave));
-        nav("home"); // Único camino a la home si todo es correcto
+        nav("home");
       } else {
-        // Muestra el mensaje exacto que manda el backend (ej: "Usuario no encontrado" o "Contraseña incorrecta")
         setErr(datos.error || "Credenciales incorrectas.");
       }
     } catch (error) {
@@ -430,7 +415,6 @@ function LoginScreen({ nav }: { nav: (s: Screen) => void }) {
               </div>
             )}
 
-            {/* Botón nativo blindado para evitar fallos de componentes externos */}
             <button
               type="button"
               onClick={handleLogin}
@@ -464,8 +448,7 @@ function ResetScreen({ nav }: { nav: (s: Screen) => void }) {
     }
 
     try {
-      // Consultamos al backend si el correo realmente existe en el usuarios.json
-      const respuesta = await fetch("http://localhost:3000/api/usuarios/verificar-email", {
+      const respuesta = await fetch("http://192.168.1.117:3000/api/usuarios/verificar-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: emailLimpio }),
@@ -474,11 +457,9 @@ function ResetScreen({ nav }: { nav: (s: Screen) => void }) {
       const datos = await respuesta.json();
 
       if (respuesta.ok) {
-        // Si el correo existe, lo guardamos y pasamos a la siguiente pantalla
         localStorage.setItem("gs_reset_email", emailLimpio);
         nav("newpass");
       } else {
-        // Si no existe, mostramos el error y frenamos acá
         setErr(datos.error || "El correo ingresado no existe.");
       }
     } catch (error) {
@@ -513,7 +494,6 @@ function ResetScreen({ nav }: { nav: (s: Screen) => void }) {
     </div>
   );
 }
-// ─── Screen 4: New Password ───────────────────────────────────────────────────
 function NewPassScreen({ nav }: { nav: (s: Screen) => void }) {
   const [pass, setPass] = useState("");
   const [confirm, setConfirm] = useState("");
@@ -533,7 +513,6 @@ function NewPassScreen({ nav }: { nav: (s: Screen) => void }) {
       return;
     }
 
-    // 1. Recuperamos el correo que guardamos recién en el ResetScreen
     const userEmail = localStorage.getItem("gs_reset_email");
     
     if (!userEmail) {
@@ -542,8 +521,7 @@ function NewPassScreen({ nav }: { nav: (s: Screen) => void }) {
     }
 
     try {
-      // 2. Mandamos la nueva contraseña al backend para que la actualice en el usuarios.json
-      const respuesta = await fetch("http://localhost:3000/api/usuarios/actualizar-password", {
+      const respuesta = await fetch("http://192.168.1.117:3000/api/usuarios/actualizar-password", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -555,17 +533,15 @@ function NewPassScreen({ nav }: { nav: (s: Screen) => void }) {
       const datos = await respuesta.json();
 
       if (respuesta.ok) {
-        // Limpiamos el email temporal del storage
         localStorage.removeItem("gs_reset_email");
-
         alert("¡Contraseña actualizada con éxito!");
         nav("login");
       } else {
         setErr(datos.error || "No se pudo actualizar la contraseña.");
       }
     } catch (error) {
-      console.error("Error al conectar con el servidor:", error);
-      setErr("Error de conexión con el backend.");
+      console.error("Error:", error);
+      setErr("Error de conexión con el servidor.");
     }
   };
 
@@ -574,24 +550,22 @@ function NewPassScreen({ nav }: { nav: (s: Screen) => void }) {
       <AuthHeader />
       <AuthShell>
         <CardWrap maxWidth={480}>
-          <CardHead title="NUEVA CONTRASEÑA" sub="Elegí una contraseña segura para tu cuenta" />
-          
+          <CardHead title="NUEVA CONTRASEÑA" sub="Ingresá tu nueva contraseña" />
           <div className="flex flex-col gap-5 p-8">
             <div>
               <Label>Nueva Contraseña</Label>
               <Field icon="fa-lock" type="password" placeholder="Mínimo 6 caracteres" value={pass} onChange={setPass} />
             </div>
             <div>
-              <Label>Confirmar Nueva Contraseña</Label>
-              <Field icon="fa-lock-open" type="password" placeholder="Repetí la contraseña" value={confirm} onChange={setConfirm} />
+              <Label>Confirmar Contraseña</Label>
+              <Field icon="fa-lock" type="password" placeholder="Repetí la contraseña" value={confirm} onChange={setConfirm} />
             </div>
 
             {err && <p className="text-xs" style={{ color: "#f87171" }}>{err}</p>}
 
             <BtnCyan type="button" onClick={handleResetPass}>
-              <i className="fa-solid fa-floppy-disk mr-2" />GUARDAR Y CONTINUAR
+              <i className="fa-solid fa-check mr-2" />ACTUALIZAR CONTRASEÑA
             </BtnCyan>
-
             <p className="text-center text-sm" style={{ color: C.muted }}>
               <TextLink onClick={() => nav("login")}>Volver al Login</TextLink>
             </p>

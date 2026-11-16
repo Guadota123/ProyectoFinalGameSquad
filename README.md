@@ -47,9 +47,32 @@ npm run dev (enter)
 -Pantalla de Partidas
 ![Partidas](/docs/images/Partidas.png)
 -Pantalla de mi Equipo
-![Partidas](/docs/images/Equipos.png)
+![Mi equipo](/docs/images/Equipos.png)
 -Pantalla de la comunidad
 ![Comunidad](/docs/images/Comunidad.png)
+
+## Capturas de pantalla Celular
+-Registro de usuario
+![Registro](/docs/images/registrocel.png)
+- Inicio de sesión
+![Inicio de sesión](/docs/images/iniciosesioncel.png)
+-Pantalla Home
+![Pantalla Home](/docs/images/homecel.png)
+-Perfil de usuario
+![Pantalla perfil de usuario](/docs/images/perfilcel.png)
+-Lobby Interno
+![Pantalla del lobby interno](/docs/images/lobbycel.png)
+-Pantalla de partidas
+![Partidas](/docs/images/partidascel.png)
+-Pantalla de mi equipo
+![Mi equipo](/docs/images/equipocel.png)
+-Pantalla de la comunidad
+![Comunidad](/docs/images/comunidadcel.png)
+
+
+
+
+
 
 
 

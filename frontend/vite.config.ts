@@ -35,6 +35,14 @@ export default defineConfig(({ mode }) => {
       port: 5173,
       strictPort: false,
       watch: { ignored: ['**/.figma/**'] },
+      proxy: {
+        // Redirige automáticamente cualquier petición que empiece con /api hacia tu backend local
+        '/api': {
+          target: 'http://localhost:3000', // Cambiá el 3000 si tu backend corre en otro puerto
+          changeOrigin: true,
+          secure: false,
+        }
+      },
     },
     preview: {
       host: '0.0.0.0',
