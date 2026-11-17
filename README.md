@@ -84,6 +84,10 @@ npm run dev (enter)
 
 ![Comunidad](docs/images/comunidadcel.jpeg)
 
+## Enlaces del proyecto
+[Enlace al prototipo de figma](https://www.figma.com/design/OCnfaGr3pWTNwrCiGWawlG/Sint%C3%ADtulo?node-id=0-1&t=QroGS3PcGYmYtP7M-1)
+[Enlace a la presentación de la etapa 1](https://drive.google.com/file/d/1xKr3tJfAFDI4rfG27JikZhPpJwDV_GrQ/view?usp=drivesdk)
+
 
 
 
